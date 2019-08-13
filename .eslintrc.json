@@ -1,0 +1,14 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "env": { "node": true, "es6": true },
+  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "rules": {
+    "guard-for-in": "off",
+    "import/extensions": ["error", "always", { "ignorePackages": true }],
+    "no-await-in-loop": "off",
+    "no-continue": "off",
+    "no-param-reassign": ["error", { "props": false }],
+    "no-restricted-syntax": ["error", "LabeledStatement", "WithStatement"]
+  }
+}

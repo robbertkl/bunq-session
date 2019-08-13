@@ -1,0 +1,56 @@
+{
+  "name": "bunq-session",
+  "version": "0.0.0",
+  "author": "Robbert Klarenbeek <robbertkl@renbeek.nl>",
+  "description": "Basic bunq API client",
+  "license": "MIT",
+  "homepage": "https://github.com/robbertkl/bunq-session",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robbertkl/bunq-session.git"
+  },
+  "bugs": {
+    "url": "https://github.com/robbertkl/bunq-session/issues"
+  },
+  "keywords": [
+    "bunq"
+  ],
+  "main": "./index.js",
+  "module": "./src/index.js",
+  "scripts": {
+    "fix": "eslint --fix .",
+    "lint": "eslint ."
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "async-mutex": "^0.1.3",
+    "bunq-http": "^0.0.1",
+    "esm": "^3.2.25",
+    "node-forge": "^0.8.5"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.2",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^3.0.3",
+    "lint-staged": "^9.2.1",
+    "prettier": "^1.18.2"
+  }
+}
