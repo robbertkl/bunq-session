@@ -122,7 +122,7 @@ export class BunqSession {
   }
 
   async getUserType() {
-    if (!this.seession) await this.login();
+    if (!this.session) await this.login();
     return this.session.userType;
   }
 
