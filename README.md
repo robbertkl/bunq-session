@@ -1,6 +1,6 @@
 # bunq-session
 
-[![npm version](https://badge.fury.io/js/bunq-session.svg)](https://badge.fury.io/js/bunq-session)
+[![npm version](https://badge.fury.io/js/bunq-session.svg)](https://www.npmjs.com/package/bunq-session)
 
 Basic bunq API client. Uses [bunq-http](https://github.com/robbertkl/bunq-http) and extends it with:
 
