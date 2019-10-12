@@ -97,7 +97,7 @@ export class BunqSession {
       return {
         token: response.bunq.objectsByType.Token[0].token,
         userId: userObject.id,
-        userType: userObject.TYPE,
+        userType: userObject.__type, // eslint-disable-line no-underscore-dangle
       };
     };
 

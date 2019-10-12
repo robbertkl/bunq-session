@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "async-mutex": "^0.1.4",
-    "bunq-http": "0.0.2",
+    "bunq-http": "^0.1.0",
     "esm": "^3.2.25",
     "node-forge": "^0.9.1"
   },
