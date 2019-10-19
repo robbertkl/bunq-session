@@ -6,8 +6,9 @@ const readFileAsync = promisify(readFile);
 const writeFileAsync = promisify(writeFile);
 
 export default class {
-  constructor(file) {
+  constructor(file, { pretty = true } = {}) {
     this.file = file;
+    this.pretty = pretty;
     this.mutex = new Mutex();
     this.store = null;
   }
@@ -41,7 +42,8 @@ export default class {
     const release = await this.mutex.acquire();
     try {
       const store = { ...this.store, [key]: value };
-      await writeFileAsync(this.file, JSON.stringify(store));
+      const json = this.pretty ? JSON.stringify(store, null, 2) : JSON.stringify(store);
+      await writeFileAsync(this.file, json);
       this.store = store;
     } finally {
       release();
