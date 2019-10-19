@@ -9,33 +9,28 @@ export default class {
   constructor(file) {
     this.file = file;
     this.mutex = new Mutex();
-    this.cache = null;
-  }
-
-  async read() {
-    const release = await this.mutex.acquire();
-    try {
-      return JSON.parse(await readFileAsync(this.file));
-    } catch (error) {
-      if (error.code === 'ENOENT') return {};
-      throw error;
-    } finally {
-      release();
-    }
-  }
-
-  async write(object) {
-    const release = await this.mutex.acquire();
-    try {
-      await writeFileAsync(this.file, JSON.stringify(object));
-    } finally {
-      release();
-    }
+    this.store = null;
   }
 
   async get(key, optionalDefault = undefined) {
-    if (this.cache === null) this.cache = await this.read();
-    if (key in this.cache) return this.cache[key];
+    if (!this.store) {
+      const release = await this.mutex.acquire();
+      try {
+        if (!this.store) {
+          this.store = JSON.parse(await readFileAsync(this.file));
+        }
+      } catch (error) {
+        if (error.code === 'ENOENT') {
+          this.store = {};
+        } else {
+          throw error;
+        }
+      } finally {
+        release();
+      }
+    }
+
+    if (key in this.store) return this.store[key];
     if (typeof optionalDefault === 'undefined') return undefined;
     const value = await (typeof optionalDefault === 'function' ? optionalDefault() : optionalDefault);
     await this.set(key, value);
@@ -43,18 +38,13 @@ export default class {
   }
 
   async set(key, value) {
-    if (this.cache === null) this.cache = await this.read();
-    const cache = { ...this.cache };
-    cache[key] = value;
-    await this.write(cache);
-    this.cache = cache;
-  }
-
-  async delete(key) {
-    if (this.cache === null) this.cache = await this.read();
-    const cache = { ...this.cache };
-    delete cache[key];
-    await this.write(cache);
-    this.cache = cache;
+    const release = await this.mutex.acquire();
+    try {
+      const store = { ...this.store, [key]: value };
+      await writeFileAsync(this.file, JSON.stringify(store));
+      this.store = store;
+    } finally {
+      release();
+    }
   }
 }

@@ -14,8 +14,4 @@ export default class {
   async set(key, value) {
     this.store[key] = value;
   }
-
-  async delete(key) {
-    delete this.store[key];
-  }
 }
