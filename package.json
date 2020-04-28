@@ -1,6 +1,6 @@
 {
   "name": "bunq-session",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Robbert Klarenbeek <robbertkl@renbeek.nl>",
   "description": "Basic bunq API client",
   "license": "MIT",
